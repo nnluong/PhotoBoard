@@ -89,6 +89,16 @@ class ImageGridViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func addImageTapped() {
+        guard let newUrl = URL(string: "\(imageBaseUrlString)?random=\(UUID().uuidString)") else { return }
+        
+        imageUrls.append(newUrl)
+        
+        let newIndexPath = IndexPath(item: imageUrls.count - 1, section: 0)
+        collectionView.insertItems(at: [newIndexPath])
+        
+        let page = floor(CGFloat(newIndexPath.item) / 70.0)
+        let newOffset = CGPoint(x: page * collectionView.bounds.width, y: 0)
+        collectionView.setContentOffset(newOffset, animated: true)
     }
     
     @objc private func reloadAllTapped() {
@@ -96,6 +106,22 @@ class ImageGridViewController: UIViewController {
     }
     
     private func reloadAllImages() {
+        // Clear existing data and cache
+        imageUrls.removeAll()
+        imageCache.removeAllObjects()
+                
+        // Generate 140 new unique image URLs
+        for _ in 0..<140 {
+            if let url = URL(string: "\(imageBaseUrlString)?random=\(UUID().uuidString)") {
+            imageUrls.append(url)
+            }
+        }
+                
+        // Refresh the collection view on the main thread
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            self.collectionView.setContentOffset(.zero, animated: false)
+        }
         
     }
 }
@@ -115,6 +141,42 @@ extension ImageGridViewController: UICollectionViewDataSource {
                    fatalError("Could not dequeue ImageCell")
                }
         
+        let imageUrl = imageUrls[indexPath.item]
+        
+        // Check cache first
+         if let cachedImage = imageCache.object(forKey: imageUrl as NSURL) {
+             cell.configure(with: cachedImage)
+         } else {
+             // If not in cache, start download
+             cell.configure(with: nil) // Show activity indicator
+             downloadImage(from: imageUrl) { [weak self] image in
+                 guard let self = self, let image = image else { return }
+                 
+                 // Cache the downloaded image
+                 self.imageCache.setObject(image, forKey: imageUrl as NSURL)
+                 
+                 // Update the cell only if it's still visible and meant for this indexPath
+                 if let visibleCell = self.collectionView.cellForItem(at: indexPath) as? ImageCell {
+                     visibleCell.configure(with: image)
+                 }
+             }
+         }
+        
         return cell
+    }
+
+    private func downloadImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil, let image = UIImage(data: data) else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+                return
+            }
+            
+            DispatchQueue.main.async {
+                completion(image)
+            }
+        }.resume()
     }
 }
