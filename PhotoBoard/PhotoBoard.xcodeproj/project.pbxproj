@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		038B3A152E8403A500A8BA20 /* ImageGridViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038B3A142E8403A500A8BA20 /* ImageGridViewController.swift */; };
+		038B3A172E84532E00A8BA20 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038B3A162E84532E00A8BA20 /* ImageCell.swift */; };
 		03DD9D742E83B1200089FE53 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DD9D732E83B1200089FE53 /* AppDelegate.swift */; };
 		03DD9D762E83B1200089FE53 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DD9D752E83B1200089FE53 /* SceneDelegate.swift */; };
 		03DD9D782E83B1200089FE53 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DD9D772E83B1200089FE53 /* ViewController.swift */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		038B3A142E8403A500A8BA20 /* ImageGridViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGridViewController.swift; sourceTree = "<group>"; };
+		038B3A162E84532E00A8BA20 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		03DD9D702E83B1200089FE53 /* PhotoBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03DD9D732E83B1200089FE53 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03DD9D752E83B1200089FE53 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +110,8 @@
 				03DD9D7C2E83B1230089FE53 /* Assets.xcassets */,
 				03DD9D7E2E83B1230089FE53 /* LaunchScreen.storyboard */,
 				03DD9D812E83B1230089FE53 /* Info.plist */,
+				038B3A142E8403A500A8BA20 /* ImageGridViewController.swift */,
+				038B3A162E84532E00A8BA20 /* ImageCell.swift */,
 			);
 			path = PhotoBoard;
 			sourceTree = "<group>";
@@ -258,9 +264,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				038B3A152E8403A500A8BA20 /* ImageGridViewController.swift in Sources */,
 				03DD9D782E83B1200089FE53 /* ViewController.swift in Sources */,
 				03DD9D742E83B1200089FE53 /* AppDelegate.swift in Sources */,
 				03DD9D762E83B1200089FE53 /* SceneDelegate.swift in Sources */,
+				038B3A172E84532E00A8BA20 /* ImageCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
